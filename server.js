@@ -2,7 +2,8 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import helmet from 'helmet'
-import { initDatabase } from './config/database-init.js';
+import pool, { initDatabase } from './config/database-init.js';
+
 import dreamsRouter from './routes/dreams.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -49,4 +50,5 @@ initDatabase().then(() => {
   });
 }).catch(error => {
   console.error('Failed to initialize database:', error);
+  process.exit(1)
 });
